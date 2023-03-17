@@ -1,0 +1,5 @@
+azureml-pipeline
+pyodbc
+pytest
+pytest-cov
+SQLAlchemy==1.4.40
