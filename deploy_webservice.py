@@ -21,8 +21,8 @@ def register_environment(ws):
         ws (azure.core.Workspace): azure ML workspace where ML model is registered
     """
 
-    myenv = Environment(name='odbc_env')
-    myenv.from_dockerfile('odbc_env', path_to_Dockerfile)
+    myenv = Environment(name='odbc-env')
+    myenv.from_dockerfile('odbc-env', path_to_Dockerfile)
     myenv.register(ws)
 
 
