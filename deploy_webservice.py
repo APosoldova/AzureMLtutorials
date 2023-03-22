@@ -33,9 +33,7 @@ def deploy_webservice(ws, env):
         ws (azure.core.Workspace): azure ML workspace where ML model and environment is registered
     """
 
-    source_directory = os.path.join(os.getcwd(), os.environ['ARTIFACT_PATH'], 'src')
-
-    model = Model(ws, os.environ['MODEL_NAME'], version=os.environ['MODEL_VERSION'])
+    model = Model.register(ws, model_name, model_path)
     inference_config = InferenceConfig(
         entry_script='script.py',
         source_directory=source_directory,
@@ -43,7 +41,6 @@ def deploy_webservice(ws, env):
 
     deployment_config = AciWebservice.deploy_configuration(cpu_cores=1.8,
                                                            memory_gb=7,
-                                                           dns_name_label=os.environ['DNS_NAME'],
                                                            enable_app_insights=True)
     service = Model.deploy(ws, os.environ['WEB_SERVICE_NAME'], [model], inference_config, deployment_config, overwrite=True)
     service.wait_for_deployment(True)
